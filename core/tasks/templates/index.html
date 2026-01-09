@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+    <!-- Removemos a div "container" e "mt-5" daqui porque ela já existe no base.html envolvendo este bloco.-->
+    <style>
+    .modal-backdrop.show {
+        backdrop-filter: blur(5px); /* Desfoca o fundo */
+        opacity: 0.8;               /* Deixa o fundo um pouco mais escuro */
+    }
+    </style>
+    <div class="row">
+        <div class="col-12">
+            
+            <!-- Bloco Principal de Informação -->
+            <div class="p-5 bg-light rounded-3 shadow-sm border">
+                <h1 class="display-5 fw-bold text-primary">Sobre este Sistema</h1>
+                <p class="col-md-8 fs-4 text-muted">
+                    Este é um sistema dedicado ao gerenciamento de tarefas. Aqui você pode visualizar, organizar e controlar o andamento das suas atividades diárias, podendo criar, excluir e marcar como concluídas suas atividades.
+                </p>
+                <hr class="my-4">
+                
+                <!-- Lista de Funcionalidades -->
+                <h4>Funcionalidades:</h4>
+                <ul>
+                    <li class="mb-2"><strong>Visualização:</strong> Acompanhe todas as tarefas cadastradas na lista abaixo.</li>
+                    <li class="mb-2"><strong>Status:</strong> Verifique se a tarefa está pendente, concluída ou com erro.</li>
+                    <li class="mb-2"><strong>Exclua:</strong> Utilize um botão vermelho para excluir uma tarefa.</li>
+                    <li class="mb-2"><strong>Atualização:</strong> Atualize os títulos, descrição e status nesse gerenciador.</li>
+                </ul>
+                
+                <button class="btn btn-primary btn-lg mt-3" type="button">Saiba mais</button>
+            </div>
+
+        </div>
+    </div>
+    
+    <!-- Não coloque tags </body>, </html> ou <script> aqui. O base.html já cuida disso. -->
+{% endblock %}
