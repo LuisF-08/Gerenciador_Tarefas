@@ -29,5 +29,18 @@
         "terminal.ansiWhite": "#BCBABE",
         "terminal.ansiYellow": "#DC8A0E"
     },
-    "git.ignoreLimitWarning": true
+    "git.ignoreLimitWarning": true,
+    "sqltools.connections": [
+        {
+            "ssh": "Disabled",
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "askForPassword": true,
+            "driver": "PostgreSQL",
+            "name": "Tarefas DB",
+            "database": "tarefasdb",
+            "username": "postgres"
+        }
+    ]
 }

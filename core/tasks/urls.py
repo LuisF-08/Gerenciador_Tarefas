@@ -4,8 +4,8 @@ from . import views
 urlpatterns = [
     # --- PÁGINAS PRINCIPAIS ---
     path('', views.painel, name='painel'),
-    path('sobre/', views.sobre, name='sobre'),
-    path('erro/', views.erro, name='erro'),
+    path('sobre/', views.sobre, name='about'),
+    path('erro/', views.erro, name='error'),
     
     # --- BUSCA ---
     path('buscar/', views.pagina_busca, name='pagina_busca'), 
