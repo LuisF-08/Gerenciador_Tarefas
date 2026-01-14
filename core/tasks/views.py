@@ -55,18 +55,16 @@ def adicionar_task(request):
     return redirect('painel')
 
 def atualizar_task(request, task_id):
+    task = get_object_or_404(Task, id=task_id)
     if request.method == 'POST':
-        task = get_object_or_404(Task, id=task_id)
         task.titulo = request.POST.get('titulo', task.titulo)
         task.descricao = request.POST.get('descricao', task.descricao)
-        task.estado = request.POST.get('estado', task.estado)
         task.save()
         
         messages.success(request, 'Tarefa Atualizada com sucesso!')
-    else:
-            messages.error(request, 'Erro na atualização.')
-        
-    return redirect('painel')
+        return redirect('painel')
+    
+    return render(request, 'editar_form.html', {'task': task})
 
 def deletar_task(request, task_id):
     if request.method == 'POST':

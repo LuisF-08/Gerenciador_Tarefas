@@ -15,5 +15,5 @@ urlpatterns = [
     path('adicionar/', views.adicionar_task, name='adicionar_task'), 
     path('atualizar/<int:task_id>/', views.atualizar_task, name='atualizar_task'),
     path('deletar/<int:task_id>/', views.deletar_task, name='deletar_task'),
-    path('marcar_estado/<int:task_id>/<str:novo_estado>/', views.marcar_estado, name='marcar'),
+    path('marcar_estado/<int:task_id>/<str:novo_estado>/', views.marcar_estado, name='marcar_estado'),
 ]

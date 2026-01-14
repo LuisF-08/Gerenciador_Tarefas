@@ -1,0 +1,115 @@
+<!-- CSS -->
+<style>
+    .task-card {
+        border: none;
+        border-radius: 12px;
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        border-left: 5px solid #ddd; 
+        background-color: #fff;
+    }
+    .task-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.12), 0 4px 8px rgba(0,0,0,0.06);
+    }
+
+    .border-pendente { border-left-color: #ffc107 !important; } 
+    .border-concluido { border-left-color: #198754 !important; } 
+
+    .bg-concluido { background-color: #f8fff9; opacity: 0.8; }
+
+    .btn-action {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.2s;
+        border: none;
+    }
+    .btn-action:hover { transform: scale(1.15); }
+</style>
+
+
+<div class="container mt-4">
+    
+    <!-- Totulo-->
+    <h3 class="mb-4 fw-bold text-secondary border-bottom pb-2">
+        <i class="bi bi-list-task me-2"></i>Minhas Tarefas
+    </h3>
+
+    <div class="row">
+        {% for tarefa in tasks %}
+            <div class="col-12 mb-3">
+                
+                <!-- CARD DA TAREFA -->
+                <div class="card task-card shadow-sm p-3 
+                            {% if tarefa.estado == 'concluido' %}border-concluido bg-concluido{% else %}border-pendente{% endif %}">
+                    
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div class="flex-grow-1">
+                            <div class="d-flex align-items-center gap-2 mb-1">
+                                <span class="badge rounded-pill {% if tarefa.estado == 'concluido' %}text-bg-success{% else %}text-bg-warning text-dark{% endif %}">
+                                    {{ tarefa.estado|title }}
+                                </span>
+                                <small class="text-muted" style="font-size: 0.8rem;">
+                                    <i class="bi bi-calendar3 me-1"></i>{{ tarefa.data_criacao|date:"d/m/Y H:i" }}
+                                </small>
+                            </div>
+
+                            <!-- Título com risco se estiver concluído -->
+                            <h5 class="fw-bold mb-1 {% if tarefa.estado == 'concluido' %}text-decoration-line-through text-muted{% endif %}">
+                                {{ tarefa.titulo }}
+                            </h5>
+                            
+                            <p class="text-secondary mb-0 text-break">
+                                {{ tarefa.descricao }}
+                            </p>
+                        </div>
+
+                        <!-- LADO DIREITO: BOTÕES DE AÇÃO -->
+                        <div class="d-flex align-items-center gap-2 ms-3">
+                            
+                            <!-- 1. BOTÃO CONCLUIR (Apenas se não estiver concluído) -->
+                            {% if tarefa.estado != 'concluido' %}
+                                <form action="{% url 'marcar_estado' tarefa.id 'concluido' %}" method="POST">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn-action bg-success text-white shadow-sm" title="Concluir Tarefa">
+                                        <i class="bi bi-check-lg fs-5"></i>
+                                    </button>
+                                </form>
+                            {% endif %}
+
+                            <!-- 2. BOTÃO EDITAR (Link azul) -->
+                            <a href="{% url 'atualizar_task' tarefa.id %}" class="btn-action bg-primary text-white shadow-sm" title="Editar">
+                                <i class="bi bi-pencil-fill" style="font-size: 0.9rem;"></i>
+                            </a>
+
+                            <!-- 3. BOTÃO DELETAR (Vermelho) -->
+                            <form action="{% url 'deletar_task' tarefa.id %}" method="POST">
+                                {% csrf_token %}
+                                <button type="submit" class="btn-action bg-danger text-white shadow-sm" 
+                                        onclick="return confirm('Tem certeza que deseja excluir esta tarefa?');" 
+                                        title="Excluir">
+                                    <i class="bi bi-trash-fill" style="font-size: 0.9rem;"></i>
+                                </button>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- FIM DO CARD -->
+
+            </div>
+        {% empty %}
+            <!-- VISUAL SE NÃO TIVER TAREFAS -->
+            <div class="col-12 text-center py-5">
+                <div class="text-muted opacity-50 mb-3">
+                    <i class="bi bi-clipboard-x display-1"></i>
+                </div>
+                <h4 class="text-muted">Nenhuma tarefa encontrada.</h4>
+                <p>Use o botão "Nova Tarefa" para começar!</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
