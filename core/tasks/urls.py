@@ -9,6 +9,7 @@ urlpatterns = [
     
     # --- BUSCA ---
     path('buscar/', views.pagina_busca, name='pagina_busca'), 
+    path('buscar/resultado/', views.resultado_busca, name='resultado_busca'),
     path('buscar/<int:task_id>/', views.buscar_task, name='buscar_task'),
 
     # --- AÇÕES (CRUD) ---

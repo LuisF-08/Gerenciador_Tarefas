@@ -1,13 +1,17 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages 
+from django.db.models import Q
 from .models import Task
 
 # --- VIEWS DE NAVEGAÇÃO E LEITURA ---
 
 def painel(request):
     tasks = Task.objects.all().order_by('-id')
+    tarefa_antiga = Task.objects.order_by('id').first()
+
     tarefas_contexto = {
-        'tasks' : tasks
+        'tasks' : tasks,
+        'tarefa_antiga': tarefa_antiga 
     }
     return render(request, 'index.html', tarefas_contexto)
 
@@ -20,24 +24,29 @@ def erro(request):
 # --- VIEWS DE BUSCA ---
 
 def pagina_busca(request):
-    # Se enviou o formulário com o ID
-    if request.method == 'POST':
-        id_buscado = request.POST.get('id_para_buscar')
-        # Redireciona para a URL que exibe o resultado
-        return redirect('buscar_task', task_id=id_buscado)
-    
-    # Se apenas acessou a página
     return render(request, 'busca_form.html')
 
+# 2. Processa a busca (Lógica ID ou Título)
+def resultado_busca(request):
+    query = request.GET.get('q') # Pega o que foi digitado
+    resultados = []
+
+    if query:
+        # Se for número, busca ID exato OU título contém o número
+        if query.isdigit():
+            resultados = Task.objects.filter(
+                Q(id=query) | Q(titulo__icontains=query)
+            )
+        # Se for texto, busca só no título
+        else:
+            resultados = Task.objects.filter(titulo__icontains=query)
+            
+    return render(request, 'busca_resultado.html', {'resultados': resultados, 'termo_buscado': query})
+
+# 3. Visualização direta (caso clique em "Detalhes" num resultado)
 def buscar_task(request, task_id):
-    try:
-        # Tenta pegar a tarefa pelo ID
-        task = Task.objects.get(id=task_id)
-        return render(request, 'busca_resultado.html', {'task': task})
-    
-    except Task.DoesNotExist:
-        # Se não existir, joga para a sua view de erro personalizada
-        return redirect('erro')
+    task = get_object_or_404(Task, id=task_id)
+    return render(request, 'buscar_tarefa.html', {'task': task})
 
 # --- VIEWS DE AÇÃO (CRUD) ---
 

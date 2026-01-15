@@ -2,9 +2,7 @@
 
 {% block conteudo %}
 
-<!-- ESTILOS EXTRAS PARA ESTA PÁGINA (CSS) -->
 <style>
-    /* Fundo levemente gradiente para a página */
     .page-wrapper {
         background: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
         min-height: 80vh;
@@ -14,81 +12,69 @@
         border-radius: 15px;
     }
 
-    /* Efeito de vidro/cartão moderno */
     .custom-card {
         border: none;
         border-radius: 1rem;
         transition: transform 0.3s ease, box-shadow 0.3s ease;
-        overflow: hidden; /* Para o cabeçalho não sair das bordas */
+        overflow: hidden;
     }
 
-    /* Animação suave ao passar o mouse no cartão */
-    .custom-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 1rem 3rem rgba(0,0,0,.175)!important;
-    }
-
-    /* Cabeçalho com Gradiente Bonito */
+    /* Header roxo/azul para diferenciar da busca */
     .card-header-gradient {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         color: white;
         padding: 1.5rem;
     }
 
-    /* Botões com efeito de crescimento (Scale) */
-    .btn-hover-effect {
-        transition: all 0.2s ease-in-out;
-    }
-    .btn-hover-effect:hover {
-        transform: scale(1.05);
-    }
+    .btn-hover-effect { transition: all 0.2s ease-in-out; }
+    .btn-hover-effect:hover { transform: scale(1.05); }
 </style>
 
 <div class="page-wrapper p-3">
     
-    <!-- INICIO DO CARTÃO -->
     <div class="card custom-card shadow-lg w-100" style="max-width: 550px;">
         
         <!-- CABEÇALHO -->
         <div class="card-header-gradient d-flex justify-content-between align-items-center">
             <div>
                 <h4 class="mb-0 fw-bold"><i class="bi bi-pencil-square me-2"></i>Editar Tarefa</h4>
-                <small class="opacity-75">ID: #{{ task.id }} | Criado em: {{ task.data_criacao|date:"d/m/Y" }}</small>
+                <small class="opacity-75">Editando ID: #{{ task.id }}</small>
             </div>
-            <!-- Botão de Fechar discreto -->
             <a href="{% url 'painel' %}" class="text-white opacity-50 hover-opacity-100 text-decoration-none fs-4">
                 <i class="bi bi-x-circle"></i>
             </a>
         </div>
 
-        <!-- FORMULÁRIO -->
-        <form method="POST" action="{% url 'atualizar_task' task.id %}" class="needs-validation" novalidate>
-            {% csrf_token %}
+        <!-- FORMULÁRIO DE EDIÇÃO (Action aponta para atualizar_task) -->
+        <form method="POST" action="{% url 'atualizar_task' task.id %}">
+            {% csrf_token %} <!-- Obrigatório para segurança do Django -->
 
             <div class="card-body p-4 bg-white">
                 
-                <!-- INPUT 1: TÍTULO (Floating Label) -->
+                <!-- INPUT 1: TÍTULO (Editável) -->
                 <div class="form-floating mb-4">
+                    <!-- name="titulo" é essencial para o views.py pegar o dado -->
                     <input type="text" 
                            class="form-control" 
                            id="floatingTitulo" 
                            name="titulo" 
-                           placeholder="Ex: Comprar Leite" 
+                           placeholder="Título" 
                            value="{{ task.titulo }}" 
-                           required>
+                           required> 
                     <label for="floatingTitulo" class="text-secondary">
                         <i class="bi bi-type-h1 me-1"></i> Título da Tarefa
                     </label>
                 </div>
 
-                <!-- INPUT 2: DESCRIÇÃO (Floating Label) -->
+                <!-- INPUT 2: DESCRIÇÃO (Editável) -->
                 <div class="form-floating mb-4">
+                    <!-- name="descricao" é essencial -->
                     <textarea class="form-control" 
-                              placeholder="Detalhes da tarefa" 
-                              id="floatingDescricao" 
-                              name="descricao" 
-                              style="height: 120px" 
-                              required>{{ task.descricao }}</textarea>
+                                placeholder="Descrição" 
+                                id="floatingDescricao" 
+                                name="descricao" 
+                                style="height: 120px" 
+                                required>{{ task.descricao }}</textarea>
                     <label for="floatingDescricao" class="text-secondary">
                         <i class="bi bi-card-text me-1"></i> Descrição Detalhada
                     </label>
@@ -103,6 +89,7 @@
                     <i class="bi bi-arrow-left me-1"></i> Cancelar
                 </a>
                 
+                <!-- Botão Type SUBMIT para enviar o formulário -->
                 <button type="submit" class="btn btn-primary btn-hover-effect px-4 rounded-pill fw-bold" 
                         style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none;">
                     <i class="bi bi-save me-1"></i> Salvar Alterações
@@ -111,7 +98,6 @@
 
         </form>
     </div>
-    <!-- FIM DO CARTÃO -->
 
 </div>
 

@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+<style>
+    .page-wrapper {
+        background: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+        min-height: 80vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 15px;
+    }
+    .custom-card { border: none; border-radius: 1rem; overflow: hidden; }
+    .card-header-gradient {
+        background: linear-gradient(135deg, #FF9966 0%, #FF5E62 100%);
+        color: white; padding: 1.5rem; text-align: center;
+    }
+    .btn-gradient {
+        background: linear-gradient(135deg, #FF9966 0%, #FF5E62 100%);
+        border: none; color: white;
+    }
+    .btn-gradient:hover { transform: scale(1.05); color: white; }
+</style>
+
+<div class="page-wrapper p-3">
+    <div class="card custom-card shadow-lg w-100" style="max-width: 500px;">
+        
+        <div class="card-header-gradient">
+            <h4 class="mb-0 fw-bold"><i class="bi bi-search me-2"></i>Buscar Tarefa</h4>
+            <small class="opacity-75">Encontre por ID ou Título</small>
+        </div>
+
+        <!-- O ACTION APONTA PARA A URL DE RESULTADO -->
+        <form action="{% url 'resultado_busca' %}" method="GET">
+            {% csrf_token %}
+            <div class="card-body p-5 bg-white">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="searchInput" name="q" placeholder="Digite..." required>
+                    <label for="searchInput">Digite ID ou Título...</label>
+                </div>
+            </div>
+
+            <div class="card-footer bg-light p-3 border-0 d-flex justify-content-between">
+                <a href="{% url 'painel' %}" class="btn btn-outline-secondary rounded-pill px-4">Cancelar</a>
+                <button type="submit" class="btn btn-gradient px-4 rounded-pill fw-bold">
+                    Pesquisar <i class="bi bi-search ms-1"></i>
+                </button>
+            </div>
+        </form>
+
+    </div>
+</div>
+{% endblock %}

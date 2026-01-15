@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+
+{% block conteudo %}
+<!-- Seção Sobre Mim -->
+<section id="sobre" class="py-5 bg-light">
+    <div class="container">
+        
+        <!-- Cabeçalho: Introdução -->
+        <div class="row justify-content-center text-center mb-5">
+            <div class="col-lg-8">
+                <h2 class="display-6 fw-bold mb-3">Sobre</h2>
+                <h4 class="text-primary mb-3">Luís Filipe Moreira Novais</h4>
+                <p class="lead text-muted">
+                    Estudante de Sistemas de Informação (IFBA) focado em Engenharia de Dados, Backend e Automação.
+                </p>
+                <p>
+                    Transformo dados em valor de negócio. Atuo no desenvolvimento de pipelines de dados, ETL/ELT, 
+                    integrações de sistemas e APIs, desenvolvimento web, sempre buscando performance e arquitetura limpa, atualmente  buscando estágio na área Tech.
+                </p>
+                
+                <!-- Botões de Contato -->
+                <div class="d-flex justify-content-center gap-2 mt-4">
+                    <a href="https://www.linkedin.com/in/luis-filipe-moreira-356427381" target="_blank" class="btn btn-outline-primary">
+                        <i class="bi bi-linkedin"></i> LinkedIn
+                    </a>
+                    <a href="mailto:luisfilipemnovais@gmail.com" class="btn btn-outline-danger">
+                        <i class="bi bi-envelope-fill"></i> Email
+                    </a>
+                    <a href="https://wa.me/5577999081860" target="_blank" class="btn btn-outline-success">
+                        <i class="bi bi-whatsapp"></i> WhatsApp
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tech Stack (Ícones Centralizados) -->
+        <div class="row justify-content-center mb-5">
+            <div class="col-md-10 text-center">
+                <h5 class="fw-bold mb-4 text-uppercase text-secondary">Tech Stack</h5>
+                <div class="d-flex justify-content-center flex-wrap gap-3">
+                    <!-- Usando as imagens que você já tem, mas controlando o tamanho -->
+                    <img src="https://skillicons.dev/icons?i=python,nodejs,javascript,bootstrap,java,spring,php&theme=light" alt="Linguagens" style="height: 50px;">
+                    <img src="https://skillicons.dev/icons?i=django,mongodb,mysql,postgres,docker,aws&theme=light" alt="Tecnologias" style="height: 50px;">
+                </div>
+            </div>
+        </div>
+
+        <!-- Projetos em Destaque (Cards Bootstrap) -->
+        <h3 class="fw-bold text-center mb-4">Projetos em Destaque</h3>
+        <div class="row g-4">
+            
+            <!-- Projeto 1 -->
+            <div class="col-md-6">
+                <div class="card h-100 shadow-sm border-0">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">📊 Análise de Dados & Automação</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Python • Machine Learning • n8n</h6>
+                        <p class="card-text mt-3">
+                            Projeto completo de análise de dados utilizando Pandas e Machine Learning, integrado com n8n para automação de fluxos de trabalho.
+                        </p>
+                        <!-- Badges Bootstrap (mais leve que imagens) -->
+                        <div class="mb-3">
+                            <span class="badge bg-primary">Python</span>
+                            <span class="badge bg-dark">Pandas</span>
+                            <span class="badge bg-info text-dark">ML</span>
+                            <span class="badge bg-danger">n8n</span>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-transparent border-0 pb-3">
+                        <a href="https://github.com/LuisF-08/Analise_Completa" target="_blank" class="btn btn-sm btn-dark w-100">
+                            Ver Projeto no GitHub
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Projeto 2 -->
+            <div class="col-md-6">
+                <div class="card h-100 shadow-sm border-0">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">🧩 Gerenciador de Tarefas</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Backend Development</h6>
+                        <p class="card-text mt-3">
+                            Sistema Backend construído com Django e PostgreSQL, focado em arquitetura limpa, operações CRUD e organização escalável.
+                        </p>
+                        <div class="mb-3">
+                            <span class="badge bg-primary">Python</span>
+                            <span class="badge bg-success">Django</span>
+                            <span class="badge bg-secondary">PostgreSQL</span>
+                            <span class="badge bg-light text-dark border">Bootstrap</span>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-transparent border-0 pb-3">
+                        <a href="https://github.com/LuisF-08/Gerenciador_Tarefas" target="_blank" class="btn btn-sm btn-dark w-100">
+                            Ver Projeto no GitHub
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+{% endblock conteudo %}
