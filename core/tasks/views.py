@@ -1,8 +1,26 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages 
 from django.db.models import Q
-from .models import Task
+from .models import Task # O modelo se chama Task
+from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from .serializers import TarefaSerializer 
 
+class TarefaViewSet(viewsets.ModelViewSet):
+    serializer_class = TarefaSerializer
+    permission_classes = [IsAuthenticated]
+    authentication_classes = [JWTAuthentication] 
+
+    def get_queryset(self):
+        # CORREÇÃO 1: Use Task.objects (o nome do seu model), não Tarefa.objects
+        
+        # OBSERVAÇÃO IMPORTANTE: Só use .filter(usuario=...) se o seu model Task
+        # tiver um campo chamado 'usuario' ou 'user'.
+        # Se suas tarefas não têm dono, use apenas: return Task.objects.all()
+        
+        # Supondo que você queira pegar todas por enquanto:
+        return Task.objects.all().order_by('-id')
 # --- VIEWS DE NAVEGAÇÃO E LEITURA ---
 
 def painel(request):

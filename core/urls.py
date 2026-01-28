@@ -18,11 +18,12 @@ from django.contrib import admin
 from django.urls import path, include
 from django.shortcuts import redirect
 
+# Redireciona a raiz (localhost:8000) direto para o painel de tarefas
 def home(request):
-    return redirect('painel')
+    return redirect('painel') 
 
 urlpatterns = [
     path('', home),
-    path('tasks/', include('tasks.urls')),
+    path('tasks/', include('tasks.urls')), 
     path('admin/', admin.site.urls),
 ]
